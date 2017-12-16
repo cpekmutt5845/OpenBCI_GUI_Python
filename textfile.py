@@ -1,4 +1,5 @@
 import csv
+import shutil
 
 txtFilePath = 'C:/Program Files/OpenBCI_GUI/SavedData/'
 # =============================================================================
@@ -14,62 +15,120 @@ if choice == 1:
     txtname = "OpenBCI-RAW-2017-12-15_18-42-47.txt"
     print("your txt file name: ",txtname)
 elif choice == 2:
+    txtname = "OpenBCI-RAW-BrainStreaming.txt"
+    print("your txt file name: ",txtname)    
+elif choice == 3:
     txtname = "whatever.txt"
     print("your txt file name: ",txtname)
 
+#   OpenBCI-RAW-BrainStreaming.txt
+#    OpenBCI-RAW-2017-12-15_18-42-47.txt
 
-outputCondition = False
-restrict = False
-count = 0
-count2 = 0
+while True:
 
-txtstream = open(txtFilePath+txtname, 'r')
-csvReader = csv.reader(txtstream)
-line1 = next(csvReader)
-line2 = next(csvReader)
-line3 = next(csvReader)
-line4 = next(csvReader)
-line5 = next(csvReader)
-line6 = next(csvReader)
+    outputCondition = False
+    restrict = False
+    count = 0
+    count2 = 0
 
-head = next(csvReader)
+    shutil.copyfile(txtFilePath+txtname, txtFilePath+'cloneFile.txt')
+    txtstream = open(txtFilePath+'cloneFile.txt', 'r')
+    csvReader = csv.reader(txtstream)
+    line1 = next(csvReader)
+    line2 = next(csvReader)
+    line3 = next(csvReader)
+    line4 = next(csvReader)
+    line5 = next(csvReader)
+    line6 = next(csvReader)
 
-coordList = []
-outputList = []
+    head = next(csvReader)
 
-for row in csvReader:
-    sampleIndex = row[0]
-    channel_1 = row[1]
-    channel_2 = row[2]
-    channel_3 = row[3]
-    channel_4 = row[4]
-    channel_5 = row[5]
-    channel_6 = row[6]
-    channel_7 = row[7]
-    channel_8 = row[8]
-    aux_1 = row[9]
-    aux_2 = row[10]
-    aux_3 = row[11]
-    timestamp = row[12]
-    coordList.append([sampleIndex, channel_1, channel_2, channel_3, channel_4, channel_5, channel_6, channel_7, channel_8, aux_1, aux_2, aux_3, timestamp])
-    float_channel_1 = float(coordList[count][1].replace(" ", ""))
-    float_channel_2 = float(coordList[count][2].replace(" ", ""))
-    float_channel_3 = float(coordList[count][3].replace(" ", ""))
-    float_channel_4 = float(coordList[count][4].replace(" ", ""))
-    float_channel_5 = float(coordList[count][5].replace(" ", ""))
-    float_channel_6 = float(coordList[count][6].replace(" ", ""))
-    float_channel_7 = float(coordList[count][7].replace(" ", ""))
-    float_channel_8 = float(coordList[count][8].replace(" ", ""))
+    coordList = []
+    outputList = []
 
-    if (howLine>0 and outputCondition) or (restrict == False and float_channel_1>0 and float_channel_2>0 and float_channel_3>0 and float_channel_4>0 and float_channel_5>0 and float_channel_6>0 and float_channel_7>0 and float_channel_8>0):
-        outputCondition = True
-        outputList.append([sampleIndex, channel_1, channel_2, channel_3, channel_4, channel_5, channel_6, channel_7, channel_8, aux_1, aux_2, aux_3, timestamp])
-        print("row:"+row[0]+"  howline"+str(howLine))
-        howLine = howLine - 1
-        if howLine == 0:
-            restrict = True
+    for row in csvReader:
+        if row[0] != "":
+            sampleIndex = row[0]
+        else:
+            sampleIndex = head[0]
+        if row[1] != "":
+            channel_1 = row[1]
+        else:
+            channel_1 = head[1]
+        if row[2] != "":
+            channel_2 = row[2]
+        else:
+            channel_2 = head[2]
+        if row[3] != "":
+            channel_3 = row[3]
+        else:
+            channel_3 = head[3]
+        if row[4] != "":
+            channel_4 = row[4]
+        else:
+            channel_4 = head[4]
+        if row[5] != "":
+            channel_5 = row[5]
+        else:
+            channel_5 = head[5]      
+        if row[6] != "":
+            channel_6 = row[6]
+        else:
+            channel_6 = head[6]      
+        if row[7] != "":
+            channel_7 = row[7]
+        else:
+            channel_7 = head[7]
+        if row[8] != "":
+            channel_8 = row[8]
+        else:
+            channel_8 = head[8]
+        if row[9] != "":
+            aux_1 = row[9]
+        else:
+            aux_1 = head[9]
+        if row[10] != "":
+            aux_2 = row[10]
+        else:
+            aux_2 = head[10]
+        if row[11] != "":
+            aux_3 = row[11]
+        else:
+            aux_3 = head[11]
+        if row[12] != "":
+            timestamp = row[12]
+        else:
+            timestamp = head[12]
+            
+        coordList.append([sampleIndex, channel_1, channel_2, channel_3, channel_4, channel_5, channel_6, channel_7, channel_8, aux_1, aux_2, aux_3, timestamp])
+        float_channel_1 = float(coordList[count][1].replace(" ", ""))
+        float_channel_2 = float(coordList[count][2].replace(" ", ""))
+        float_channel_3 = float(coordList[count][3].replace(" ", ""))
+        float_channel_4 = float(coordList[count][4].replace(" ", ""))
+        float_channel_5 = float(coordList[count][5].replace(" ", ""))
+        float_channel_6 = float(coordList[count][6].replace(" ", ""))
+        float_channel_7 = float(coordList[count][7].replace(" ", ""))
+        float_channel_8 = float(coordList[count][8].replace(" ", ""))
 
-    count = count + 1
+        if (howLine>0 and outputCondition) or (restrict == False and float_channel_1>0 and float_channel_2>0 and float_channel_3>0 and float_channel_4>0 and float_channel_5>0 and float_channel_6>0 and float_channel_7>0 and float_channel_8>0):
+            outputCondition = True
+            outputList.append([sampleIndex, channel_1, channel_2, channel_3, channel_4, channel_5, channel_6, channel_7, channel_8, aux_1, aux_2, aux_3, timestamp])
+            print("row:"+row[0]+"  howline"+str(howLine) + "time" + row[12])
+            howLine = howLine - 1
+            if howLine == 0:
+                restrict = True # we restict because we don't want to append anymore
+
+        count = count + 1
+        
+        if restrict == True and howLine == 0:
+            print("Trigger!")
+            break
+        
+    txtstream.close()
+    csvReader = 0
+        
+    if restrict == True:
+        break
 
 #next, write output file before bring this one to model
 
