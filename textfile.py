@@ -31,29 +31,16 @@ while True:
     validateDataset = False
     count = 0
     count2 = 0
+    countLine = 0
 
-# =============================================================================
-#     while True:
-#         shutil.copyfile(txtFilePath+txtname, txtFilePath+'cloneFile.txt')
-#         txtstream = open(txtFilePath+'cloneFile.txt', 'r')
-#         csv1stReader = csv.reader(txtstream)
-#         p_line1 = next(csv1stReader)
-#         p_line2 = next(csv1stReader)
-#         p_line3 = next(csv1stReader)
-#         p_line4 = next(csv1stReader)
-#         p_line5 = next(csv1stReader)
-#         p_line6 = next(csv1stReader)
-#         p_head = next(csv1stReader)
-#         
-#         for row in csv1stReader:
-#             if row[0]!="" and row[1]!="" and row[2]!="" and row[3]!="" and row[4]!="" and row[5]!="":
-#                 validateDataset = True
-#         
-#         if validateDataset == True:
-#             break
-# =============================================================================
         
     shutil.copyfile(txtFilePath+txtname, txtFilePath+'cloneFile.txt')
+    txtstream = open(txtFilePath+'cloneFile.txt', 'r')
+    csvReader = csv.reader(txtstream)
+    row_count = sum(1 for a in csvReader)
+    print("count: "+str(row_count))
+    txtstream.close()
+    
     txtstream = open(txtFilePath+'cloneFile.txt', 'r')
     csvReader = csv.reader(txtstream)
     line1 = next(csvReader)
@@ -69,44 +56,49 @@ while True:
     outputList = []
 
     for row in csvReader:
-        sampleIndex = row[0]
-        channel_1 = row[1]
-        channel_2 = row[2]
-        channel_3 = row[3]
-        channel_4 = row[4]
-        channel_5 = row[5]
-        channel_6 = row[6]
-        channel_7 = row[7]
-        channel_8 = row[8]
-        aux_1 = row[9]
-        aux_2 = row[10]
-        aux_3 = row[11]
-        timestamp = row[12]
+        if countLine < row_count-7-1:
+#            print("row count:"+str(row_count)+"countLinee:"+str(countLine))
+            sampleIndex = row[0]
+            channel_1 = row[1]
+            channel_2 = row[2]
+            channel_3 = row[3]
+            channel_4 = row[4]
+            channel_5 = row[5]
+            channel_6 = row[6]
+            channel_7 = row[7]
+            channel_8 = row[8]
+            aux_1 = row[9]
+            aux_2 = row[10]
+            aux_3 = row[11]
+            timestamp = row[12]
             
-        coordList.append([sampleIndex, channel_1, channel_2, channel_3, channel_4, channel_5, channel_6, channel_7, channel_8, aux_1, aux_2, aux_3, timestamp])
-        float_channel_1 = float(coordList[count][1].replace(" ", ""))
-        float_channel_2 = float(coordList[count][2].replace(" ", ""))
-        float_channel_3 = float(coordList[count][3].replace(" ", ""))
-        float_channel_4 = float(coordList[count][4].replace(" ", ""))
-        float_channel_5 = float(coordList[count][5].replace(" ", ""))
-        float_channel_6 = float(coordList[count][6].replace(" ", ""))
-        float_channel_7 = float(coordList[count][7].replace(" ", ""))
-        float_channel_8 = float(coordList[count][8].replace(" ", ""))
+            coordList.append([sampleIndex, channel_1, channel_2, channel_3, channel_4, channel_5, channel_6, channel_7, channel_8, aux_1, aux_2, aux_3, timestamp])
+            float_channel_1 = float(coordList[count][1].replace(" ", ""))
+            float_channel_2 = float(coordList[count][2].replace(" ", ""))
+            float_channel_3 = float(coordList[count][3].replace(" ", ""))
+            float_channel_4 = float(coordList[count][4].replace(" ", ""))
+            float_channel_5 = float(coordList[count][5].replace(" ", ""))
+            float_channel_6 = float(coordList[count][6].replace(" ", ""))
+            float_channel_7 = float(coordList[count][7].replace(" ", ""))
+            float_channel_8 = float(coordList[count][8].replace(" ", ""))
 
-        if (howLine>0 and outputCondition) or (restrict == False and float_channel_1>0 and float_channel_2>0 and float_channel_3>0 and float_channel_4>0 and float_channel_5>0 and float_channel_6>0 and float_channel_7>0 and float_channel_8>0):
-            outputCondition = True
-            outputList.append([sampleIndex, channel_1, channel_2, channel_3, channel_4, channel_5, channel_6, channel_7, channel_8, aux_1, aux_2, aux_3, timestamp])
-            print("row:"+row[0]+"  howline"+str(howLine) + "time" + row[12])
-            howLine = howLine - 1
-            if howLine == 0:
-                restrict = True # we restict because we don't want to append anymore
+            if (howLine>0 and outputCondition) or (restrict == False and float_channel_1>0 and float_channel_2>0 and float_channel_3>0 and float_channel_4>0 and float_channel_5>0 and float_channel_6>0 and float_channel_7>0 and float_channel_8>0):
+                outputCondition = True
+                outputList.append([sampleIndex, channel_1, channel_2, channel_3, channel_4, channel_5, channel_6, channel_7, channel_8, aux_1, aux_2, aux_3, timestamp])
+                print("row:"+row[0]+"  howline"+str(howLine) + "time" + row[12])
+                howLine = howLine - 1
+                if howLine == 0:
+                    restrict = True # we restict because we don't want to append anymore
 
-        count = count + 1
+            count = count + 1
         
-        if restrict == True and howLine == 0:
-            print("Trigger!")
-            break
+            if restrict == True and howLine == 0:
+                print("Trigger!")
+                break
+            
+            countLine = countLine + 1
         
+
     txtstream.close()
     csvReader = 0
         
