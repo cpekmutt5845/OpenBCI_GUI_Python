@@ -28,9 +28,31 @@ while True:
 
     outputCondition = False
     restrict = False
+    validateDataset = False
     count = 0
     count2 = 0
 
+# =============================================================================
+#     while True:
+#         shutil.copyfile(txtFilePath+txtname, txtFilePath+'cloneFile.txt')
+#         txtstream = open(txtFilePath+'cloneFile.txt', 'r')
+#         csv1stReader = csv.reader(txtstream)
+#         p_line1 = next(csv1stReader)
+#         p_line2 = next(csv1stReader)
+#         p_line3 = next(csv1stReader)
+#         p_line4 = next(csv1stReader)
+#         p_line5 = next(csv1stReader)
+#         p_line6 = next(csv1stReader)
+#         p_head = next(csv1stReader)
+#         
+#         for row in csv1stReader:
+#             if row[0]!="" and row[1]!="" and row[2]!="" and row[3]!="" and row[4]!="" and row[5]!="":
+#                 validateDataset = True
+#         
+#         if validateDataset == True:
+#             break
+# =============================================================================
+        
     shutil.copyfile(txtFilePath+txtname, txtFilePath+'cloneFile.txt')
     txtstream = open(txtFilePath+'cloneFile.txt', 'r')
     csvReader = csv.reader(txtstream)
@@ -47,58 +69,19 @@ while True:
     outputList = []
 
     for row in csvReader:
-        if row[0] != "":
-            sampleIndex = row[0]
-        else:
-            sampleIndex = head[0]
-        if row[1] != "":
-            channel_1 = row[1]
-        else:
-            channel_1 = head[1]
-        if row[2] != "":
-            channel_2 = row[2]
-        else:
-            channel_2 = head[2]
-        if row[3] != "":
-            channel_3 = row[3]
-        else:
-            channel_3 = head[3]
-        if row[4] != "":
-            channel_4 = row[4]
-        else:
-            channel_4 = head[4]
-        if row[5] != "":
-            channel_5 = row[5]
-        else:
-            channel_5 = head[5]      
-        if row[6] != "":
-            channel_6 = row[6]
-        else:
-            channel_6 = head[6]      
-        if row[7] != "":
-            channel_7 = row[7]
-        else:
-            channel_7 = head[7]
-        if row[8] != "":
-            channel_8 = row[8]
-        else:
-            channel_8 = head[8]
-        if row[9] != "":
-            aux_1 = row[9]
-        else:
-            aux_1 = head[9]
-        if row[10] != "":
-            aux_2 = row[10]
-        else:
-            aux_2 = head[10]
-        if row[11] != "":
-            aux_3 = row[11]
-        else:
-            aux_3 = head[11]
-        if row[12] != "":
-            timestamp = row[12]
-        else:
-            timestamp = head[12]
+        sampleIndex = row[0]
+        channel_1 = row[1]
+        channel_2 = row[2]
+        channel_3 = row[3]
+        channel_4 = row[4]
+        channel_5 = row[5]
+        channel_6 = row[6]
+        channel_7 = row[7]
+        channel_8 = row[8]
+        aux_1 = row[9]
+        aux_2 = row[10]
+        aux_3 = row[11]
+        timestamp = row[12]
             
         coordList.append([sampleIndex, channel_1, channel_2, channel_3, channel_4, channel_5, channel_6, channel_7, channel_8, aux_1, aux_2, aux_3, timestamp])
         float_channel_1 = float(coordList[count][1].replace(" ", ""))
