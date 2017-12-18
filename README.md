@@ -23,5 +23,18 @@ NOTE:
 
 - out.txt will locate in the same directory ("SavedData" in this case) but you can merge my code to save out.txt in somewhere else
 
+![alt text](https://www.picz.in.th/images/2017/12/18/555020d43cf849c83c5.png)
+
+
+HOW TO RUN:
+1. Following OpenBCI GUI instruction on link above
+2. Stream data on OpenBCI GUI first (and change name to "BrainStreaming")
+3. Press "START SYSTEM"
+4. Press spacebar to initial streaming
+5. run textfile.py if use 8 channels, textfile16channel.py if use 16 channels
+6. input your prefer of a number of lines for out.txt (output text and we will use this to model)
+7. program will loop until triggered (ex. wearing ULTRACORTEX MARK IV)
+8. out.txt will be created
+
 
 ** If you found any problems in my code please don't hesitate to issues **
